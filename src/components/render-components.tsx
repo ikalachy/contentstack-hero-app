@@ -9,6 +9,7 @@ import BlogSection from "./blog-section";
 import SectionBucket from "./section-bucket";
 import AboutSectionBucket from "./about-section-bucket";
 import SectionWithHtmlCode from "./section-with-html-code";
+import SuperHeroForm from "./super-hero-form";
 import { RenderProps } from "../typescript/component";
 
 export default function RenderComponents(props: RenderProps) {
@@ -74,6 +75,14 @@ export default function RenderComponents(props: RenderProps) {
           return (
             <TeamSection
               ourTeam={component.our_team}
+              key={`component-${key}`}
+            />
+          );
+        }
+        if (component.super_hero_form) {
+          return (
+            <SuperHeroForm
+              form={component.super_hero_form}
               key={`component-${key}`}
             />
           );

@@ -63,6 +63,7 @@ type Widget = {
 }
 
 export type Component = {
+  super_hero_form: any;
   hero_banner: Banner;
   section?: SectionProps;
   section_with_buckets?: SectionWithBucket;
@@ -125,6 +126,13 @@ export type FeaturedBlogData = {
     featured_blogs: FeaturedBlog;
     $: Object;
 }
+
+export type SuperHeroFromProps = {
+  title?: string;
+  description?: string;
+  entryUid?: string;
+  locale?: string;
+};
 
 export type RenderProps = {
   blogsPage?: boolean;

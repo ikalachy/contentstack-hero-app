@@ -18,6 +18,8 @@ type GetEntryByUrl = {
   jsonRtePath: string[] | undefined;
 };
 
+// console.log(`api: ${process.env.REACT_APP_CONTENTSTACK_API_HOST}`);
+
 const Stack = contentstack.Stack({
   api_key: `${process.env.REACT_APP_CONTENTSTACK_API_KEY}`,
   delivery_token: `${process.env.REACT_APP_CONTENTSTACK_DELIVERY_TOKEN}`,
@@ -52,6 +54,9 @@ ContentstackLivePreview.init({
   ssr: false,
 });
 
+// if (`${process.env.REACT_APP_CONTENTSTACK_PROXY_HOST}`) {
+//   Stack.setHost(`${process.env.REACT_APP_CONTENTSTACK_PROXY_HOST}`);
+// }
 if (`${process.env.REACT_APP_CONTENTSTACK_API_HOST}`) {
   Stack.setHost(`${process.env.REACT_APP_CONTENTSTACK_API_HOST}`);
 }
@@ -87,7 +92,7 @@ export default {
               Utils.jsonToHTML({
                 entry: result,
                 paths: jsonRtePath,
-                renderOption,
+                renderOption
               });
             resolve(result);
           },
@@ -111,7 +116,7 @@ export default {
     contentTypeUid,
     entryUrl,
     referenceFieldPath,
-    jsonRtePath,
+    jsonRtePath
   }: GetEntryByUrl) {
     return new Promise((resolve, reject) => {
       const blogQuery = Stack.ContentType(contentTypeUid).Query();
@@ -124,7 +129,7 @@ export default {
             Utils.jsonToHTML({
               entry: result,
               paths: jsonRtePath,
-              renderOption,
+              renderOption
             });
           resolve(result[0]);
         },
@@ -133,5 +138,5 @@ export default {
         }
       );
     });
-  },
+  }
 };
