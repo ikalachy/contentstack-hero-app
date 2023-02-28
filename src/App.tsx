@@ -11,6 +11,9 @@ import "./styles/modal.css";
 import "@contentstack/live-preview-utils/dist/main.css";
 import "react-loading-skeleton/dist/skeleton.css";
 import { EntryProps } from "../src/typescript/layout";
+import HeroGallery from "./pages/heroes-gallery";
+import HeroPage from "./pages/hero";
+import MyHeroPage from "./pages/my-hero";
 
 function App() {
   const [getEntry, setEntry] = useState({} as EntryProps);
@@ -23,9 +26,12 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Layout entry={getEntry} />}>
-          <Route index element={<Home entry={getPageRes} />} />
+          <Route index element={<HeroGallery entry={getPageRes} />} />
           <Route path="/:page" element={<Home entry={getPageRes} />} />
-          <Route path="/blog" element={<Blog entry={getPageRes} />} />
+          {/* <Route path="/blog" element={<Blog entry={getPageRes} />} /> */}
+          <Route path="/gallery" element={<HeroGallery entry={getPageRes} />} />
+          <Route path="/hero" element={<HeroPage/>} />
+          <Route path="/my-hero" element={<MyHeroPage/>} />
           <Route
             path="/blog/:blogId"
             element={<BlogPost entry={getPageRes} />}

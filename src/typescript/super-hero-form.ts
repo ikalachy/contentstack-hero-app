@@ -1,3 +1,4 @@
+import { FieldValues } from "react-hook-form";
 export enum HeroQuality {
   "Superhero for Justice" = "superhero for justice with a cape like superman or superwoman",
   "Magical Fantasy" = "magic, fantasy, golden light, cape, glowing",
@@ -16,12 +17,21 @@ export enum GenderQuality {
   ShortHair = "Short hair"
 }
 
-export type Inputs = {
+export enum HeroConsent {
+  TERM = "I accept terms and conditions"
+}
+
+export interface HeroFormFields extends FieldValues {
+  uid?: string;
   name: string;
+  title: string;
   job_title: string;
   job_description: string;
+  work_email: string;
+  phone_number?: string;
   superhero_qualities: HeroQuality;
-  gender_qualities: [GenderQuality];
-  original_image: File;
+  gender_qualities: [string];
+  original_image: [File];
   background_story: string;
-};
+  heroConsent: boolean;
+}

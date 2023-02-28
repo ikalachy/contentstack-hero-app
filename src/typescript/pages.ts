@@ -38,7 +38,17 @@ export type Entry = {
   
 export type BlogData = {
     is_archived: boolean;
-  }
+}
+  
+export type ImageData = {
+  uid: string;
+  aprimo_composable_card_url: string;
+  aprimo_hero_card_url: string;
+  title: string;
+  job_title: string;
+  created_at: Date;
+  updated_by: Date;
+};
   
 export type ArchiveBlogList = [
     blogs:{
@@ -64,4 +74,15 @@ export type Post = {
     body:string;
     related_post:[Blog];
     $:Object;
-  }
+}
+  
+export type Hero = {
+  page_components: [];
+  uid: string;
+  aprimo_composable_card_url: string;
+  aprimo_hero_card_url: string;
+  title: string;
+  created_at: Date;
+  updated_by: Date;
+  $: Object;
+};

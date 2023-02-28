@@ -58,6 +58,29 @@ export const getBlogListRes = async () => {
   return response[0];
 };
 
+export const getHeroFormListRes = async (limit: number, orderBy: string) => {
+  const response = (await Stack.getEntry({
+    contentTypeUid: "superhero_form",
+    referenceFieldPath: undefined,
+    jsonRtePath: undefined,
+    limit: limit,
+    orderBy: orderBy
+  })) as any;
+  liveEdit && addEditableTags(response[0], "superhero_form", true);
+  return response[0];
+};
+
+export const getMyHeroRes = async (id: string) => {
+  const response = (await Stack.getEntryById({
+    contentTypeUid: "superhero_form",
+    entryId: id,
+    referenceFieldPath: undefined,
+    jsonRtePath: undefined,
+  })) as any;
+  liveEdit && addEditableTags(response[0], "superhero_form", true);
+  return response;
+};
+
 export const getBlogPostRes = async (entryUrl: string) => {
   const response = (await Stack.getEntryByUrl({
     contentTypeUid: "blog_post",

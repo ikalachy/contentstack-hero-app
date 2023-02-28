@@ -1,0 +1,133 @@
+{
+  "name": {
+    "type": "text",
+    "label": "Your name",
+    "placeholder": "Enter your name",
+    "registerOptions": {
+      "required": true,
+      "maxLength": 100,
+      "minLength": { "value": 1, "message": "Min length" }
+    }
+  },
+
+  "job_title": {
+    "type": "text",
+    "label": "Job Title",
+    "placeholder": "Enter your full job title",
+
+    "registerOptions": {
+      "required": true,
+      "maxLength": 100,
+      "minLength": { "value": 1, "message": "Min length" }
+    }
+  },
+
+  "job_description": {
+    "type": "text",
+    "label": "What is your main job description?",
+    "placeholder": "Enter your full job description",
+    "registerOptions": {
+      "required": false
+    }
+  },
+
+  "work_email": {
+    "type": "text",
+    "label": "Work Email",
+    "placeholder": "Type something...",
+    "registerOptions": {
+      "required": false
+    }
+  },
+
+  "phone_number": {
+    "type": "text",
+    "label": "Phone Number",
+    "placeholder": "Type something...",
+    "registerOptions": {
+      "required": false,
+      "pattern": "/^[0-9]$/"
+    }
+  },
+
+  "superhero_qualities": {
+    "label": "Character Request",
+    "type": "select",
+    "text": "What type of character do you want to be?",
+    "registerOptions": {
+      "required": false
+    },
+    "options": {
+      "Superhero for Justice": "Superhero for Justice",
+      "Magical Fantasy": "Magical Fantasy",
+      "Action Hero": "Action Hero",
+      "Ninja Warrior": "Ninja Warrior",
+      "Mystical Wizard": "Mystical Wizard",
+      "1920s Gangster": "1920s Gangster"
+    }
+  },
+
+  "gender_qualities": {
+    "type": "checkbox",
+    "label": "Additional characteristics",
+    "text": "Additional description features will help create the image you want.",
+    "registerOptions": {
+      "required": false
+    },
+    "options": {
+      "Masculine": "Masculine",
+      "Feminine": "Feminine",
+      "Beautiful": "Beautiful",
+      "Handsome": "Handsome",
+      "LongHair": "Long hair",
+      "ShortHair": "Short hair"
+    }
+  },
+
+  "original_image": {
+    "type": "file",
+    "label": "Original Image",
+    "placeholder": "Original Image",
+    "text": "Upload a headshot of your clear face, with no hat, glasses or distracting background elements.",
+    "registerOptions": {
+      "required": { "value": true, "message": "Please, choose image to upload" }
+    }
+  },
+
+  "background_story": {
+    "containerClass": "text-field",
+    "type": "textarea",
+    "name": "background_story",
+    "label": "Background story",
+    "placeholder": "Type something...",
+    "registerOptions": {
+      "required": true,
+      "maxLength": 100,
+      "minLength": { "value": 5, "message": "Min length" }
+    }
+  },
+
+  "consent_text": {
+    "containerClass": "text-field",
+    "type": "textarea",
+    "name": "consent",
+    "label": "consent",
+    "readonly": true,
+    "placeholder": "Type something...",
+    "registerOptions": {
+      "required": false
+    }
+  },
+  "heroConsent": {
+    "type": "checkbox",
+    "label": "Terms and Conditions",
+    "name": "heroConsent",
+    "registerOptions": {
+      "required": {
+        "value": true,
+        "message": "Please, accept terms and conditions"
+      }
+    },
+    "options": { "TERM": "I accept terms and conditions" }
+  }
+}

@@ -9,6 +9,8 @@ type GetEntry = {
   contentTypeUid: string;
   referenceFieldPath: string[] | undefined;
   jsonRtePath: string[] | undefined;
+  limit?: number;
+  orderBy?: string;
 };
 
 type GetEntryByUrl = {
@@ -18,8 +20,14 @@ type GetEntryByUrl = {
   jsonRtePath: string[] | undefined;
 };
 
-// console.log(`api: ${process.env.REACT_APP_CONTENTSTACK_API_HOST}`);
+type GetEntryById = {
+  entryId: string;
+  contentTypeUid: string;
+  referenceFieldPath: string[] | undefined;
+  jsonRtePath: string[] | undefined;
+};
 
+// console.log(`api: ${process.env.REACT_APP_CONTENTSTACK_API_HOST}`);
 const Stack = contentstack.Stack({
   api_key: `${process.env.REACT_APP_CONTENTSTACK_API_KEY}`,
   delivery_token: `${process.env.REACT_APP_CONTENTSTACK_DELIVERY_TOKEN}`,
@@ -32,11 +40,11 @@ const Stack = contentstack.Stack({
     management_token: `${process.env.REACT_APP_CONTENTSTACK_MANAGEMENT_TOKEN}`
       ? `${process.env.REACT_APP_CONTENTSTACK_MANAGEMENT_TOKEN}`
       : "",
-    enable: true,
+    enable: false,
     host: `${process.env.REACT_APP_CONTENTSTACK_API_HOST}`
       ? `${process.env.REACT_APP_CONTENTSTACK_API_HOST}`
-      : "",
-  },
+      : ""
+  }
 });
 
 /**
@@ -49,9 +57,9 @@ ContentstackLivePreview.init({
   clientUrlParams: {
     host: `${process.env.REACT_APP_CONTENTSTACK_APP_HOST}`
       ? `${process.env.REACT_APP_CONTENTSTACK_APP_HOST}`
-      : "",
+      : ""
   },
-  ssr: false,
+  ssr: false
 });
 
 // if (`${process.env.REACT_APP_CONTENTSTACK_PROXY_HOST}`) {
@@ -64,7 +72,7 @@ if (`${process.env.REACT_APP_CONTENTSTACK_API_HOST}`) {
 const renderOption = {
   ["span"]: (node: any, next: any) => {
     return next(node.children);
-  },
+  }
 };
 
 export const onEntryChange = ContentstackLivePreview.onEntryChange;
@@ -78,12 +86,20 @@ export default {
    * @param {* Json RTE path} jsonRtePath
    *
    */
-  getEntry({ contentTypeUid, referenceFieldPath, jsonRtePath }: GetEntry) {
+  getEntry({
+    contentTypeUid,
+    referenceFieldPath,
+    jsonRtePath,
+    limit = 20,
+    orderBy = "updated_at"
+  }: GetEntry) {
     return new Promise((resolve, reject) => {
       const query = Stack.ContentType(contentTypeUid).Query();
       if (referenceFieldPath) query.includeReference(referenceFieldPath);
       query
         .includeOwner()
+        .limit(limit)
+        .descending(orderBy)
         .toJSON()
         .find()
         .then(
@@ -132,6 +148,44 @@ export default {
               renderOption
             });
           resolve(result[0]);
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+  },
+
+  /**
+   *fetches specific entry from a content-type by id
+   *
+   * @param {* content-type uid} contentTypeUid
+   * @param {* id for entry to be fetched} entryId
+   * @param {* reference field name} referenceFieldPath
+   * @param {* Json RTE path} jsonRtePath
+   * @returns
+   */
+  getEntryById({
+    contentTypeUid,
+    entryId,
+    referenceFieldPath,
+    jsonRtePath
+  }: GetEntryById) {
+    return new Promise((resolve, reject) => {
+      const entryQuery = Stack.ContentType(contentTypeUid).Entry(entryId);
+      // const blogQuery = Stack.ContentType("contentTypeUid").Query("entryId");
+      if (referenceFieldPath) entryQuery.includeReference(referenceFieldPath);
+      // blogQuery.includeOwner().toJSON();
+      const data = entryQuery.toJSON().fetch();
+      data.then(
+        (result) => {
+          jsonRtePath &&
+            Utils.jsonToHTML({
+              entry: result,
+              paths: jsonRtePath,
+              renderOption
+            });
+          resolve(result);
         },
         (error) => {
           reject(error);

@@ -74,6 +74,7 @@ export type Links = {
 export type HeaderProps = {
   notification_bar: Announcement;
   logo: Image;
+  logo_text?: string;
 };
 
 export type Social = {

@@ -3,9 +3,9 @@ import { Link, NavLink, useMatch, useResolvedPath } from 'react-router-dom';
 import parse from 'html-react-parser';
 import Tooltip from '../components/too-tip';
 import Skeleton from 'react-loading-skeleton';
-import { HeaderProps,HeadermenuProps } from "../typescript/layout";
+import { HeaderProps, HeadermenuProps } from "../typescript/layout";
 
-export default function Header({ header, navMenu }: {header: HeaderProps, navMenu: HeadermenuProps}) {
+export default function Header({ header, navMenu }: { header: HeaderProps, navMenu: HeadermenuProps }) {
   let resolved;
   let match;
 
@@ -26,14 +26,9 @@ export default function Header({ header, navMenu }: {header: HeaderProps, navMen
       )}
       <div className='max-width header-div'>
         <div className='wrapper-logo'>
-          {header.logo ? (
+          {header.logo_text ? (
             <Link to='/' title='Contentstack'>
-              <img
-                {...header.logo.$?.url as {}}
-                className='logo'
-                src={header.logo.url}
-                alt={header.logo.filename}
-              />
+              <h1 className="Logos">{header.logo_text}</h1>
             </Link>
           ) : (
             <a>
@@ -52,35 +47,35 @@ export default function Header({ header, navMenu }: {header: HeaderProps, navMen
                 <li key={list.label} className='nav-li'>
                   {
                     ((resolved = useResolvedPath(list.page_reference[0].url)),
-                    (match = useMatch({ path: resolved.pathname, end: true })),
-                    (
-                      <NavLink
-                        {...list.$?.label}
-                        to={list.page_reference[0].url}
-                        className={match ? 'active' : ''}
-                      >
-                        {list.label}
-                      </NavLink>
-                    ))
+                      (match = useMatch({ path: resolved.pathname, end: true })),
+                      (
+                        <NavLink
+                          {...list.$?.label}
+                          to={list.page_reference[0].url}
+                          className={match ? 'active' : ''}
+                        >
+                          {list.label}
+                        </NavLink>
+                      ))
                   }
                 </li>
               ))
             ) : (
               <li>
                 <a>
-                  <Skeleton width={400}/>
+                  <Skeleton width={400} />
                 </a>
               </li>
             )}
           </ul>
         </nav>
-        <div className='json-preview'>
+        {/* <div className='json-preview'>
           <Tooltip content='JSON Preview' direction='top' dynamic={false} delay={200} status={0}>
             <span data-bs-toggle='modal' data-bs-target='#staticBackdrop'>
               <img src='/json.svg' alt='JSON Preview icon' />
             </span>
           </Tooltip>
-        </div>
+        </div> */}
       </div>
     </header>
   );
